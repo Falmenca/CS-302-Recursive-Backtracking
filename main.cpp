@@ -4,7 +4,7 @@
 using namespace std;
 
 char sheikahSlate[7][7];
-int totalStepsNeeded = 0;
+int totalStepsNeeded = 0; 
 int endX = 0, endY = 0; //End coordinates
 char s = '0';
 
@@ -15,23 +15,23 @@ void displayBoard(){ //Display our 2d array onto console
     }
 }
 
-void backtrackCharInsert(char grid[7][7], char &s, int x, int y) {
+void backtrackCharInsert(char grid[7][7], char &s, int x, int y) { //Inserts character into empty space
     grid[x][y] = s;
     if (s != '9') s++;
     else s = 'A';
 }
 
-void backtrackCharUndo(char grid[7][7], char &s, int x, int y){
+void backtrackCharUndo(char grid[7][7], char &s, int x, int y){ //Deletes character 
     if (s == 'A') s = '9';
     else if (s > '0') s--; // Reset character if we backtrack
     grid[x][y] = ' '; // Undo the move
 }
 
-bool validMove(char grid[7][7], int x, int y) {
+bool validMove(char grid[7][7], int x, int y) { //Checks if move is valid
     return x >= 0 && x < 7 && y >= 0 && y < 7 && grid[x][y] == ' ';
 }
 
-bool backtrack(char grid[7][7], int x, int y, int stepCounter) {
+bool backtrack(char grid[7][7], int x, int y, int stepCounter) { //RECURSIONNNN
     backtrackCharInsert(grid, s, x, y);
     if (x == endX && y == endY && stepCounter == totalStepsNeeded) return true; //Found a valid path
     if(validMove(grid, x+1, y)){if(backtrack(grid, x+1, y, stepCounter+1)){return true;}} //Check up
@@ -65,7 +65,7 @@ int main(){
     cout << "Enter config file: "; cin >> boardFile; 
     cout << boardFile << endl;
     cout << "Please enter starting coordinates: "; cin >> startX >> startY; //cout << startX << " " << startY << endl; 
-    cout << "Please enter end coordinates: "; cin >> endX >> endY; //cout << endX << " " << endY << endl; //Program breaks without this cout statement
+    cout << "Please enter end coordinates: "; cin >> endX >> endY; //cout << endX << " " << endY << endl; 
 
     readBoard(boardFile);
     backtrack(sheikahSlate, startX, startY, stepCounter); 
